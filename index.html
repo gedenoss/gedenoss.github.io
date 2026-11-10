@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>denoss</title>
+<style>
+:root{
+  --bg:#282828;--bg-soft:#32302f;--bg-hard:#1d2021;
+  --fg:#ebdbb2;--gray:#928374;--gutter:#665c54;
+  --red:#fb4934;--green:#b8bb26;--yellow:#fabd2f;
+  --blue:#83a598;--purple:#d3869b;--aqua:#8ec07c;--orange:#fe8019;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;background:var(--bg-hard);}
+body{
+  font-family:'JetBrains Mono','Fira Code',ui-monospace,SFMono-Regular,Menlo,Consolas,'DejaVu Sans Mono',monospace;
+  color:var(--fg);font-size:15px;line-height:1.6;
+  min-height:100vh;display:flex;justify-content:center;align-items:flex-start;
+  padding:24px 16px;
+}
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px);
+  mix-blend-mode:multiply;opacity:.55;
+}
+.win{
+  position:relative;width:100%;max-width:820px;background:var(--bg);
+  border:1px solid #3c3836;border-radius:7px;overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:0 0 0 1px rgba(0,0,0,.4),0 18px 60px rgba(0,0,0,.6),0 0 90px rgba(184,187,38,.05);
+}
+.tabline{display:flex;background:var(--bg-hard);font-size:13px;user-select:none;}
+.tab{padding:9px 18px;border-right:1px solid #3c3836;}
+.tab.on{background:var(--bg);color:var(--fg);border-top:2px solid var(--aqua);}
+.tab.off{color:var(--gutter);border-top:2px solid transparent;}
+.tabfill{flex:1;border-bottom:1px solid #3c3836;}
+.file{padding:16px 0;counter-reset:ln;overflow-x:auto;}
+.l{
+  display:grid;grid-template-columns:4ch 1fr;gap:18px;
+  padding:0 20px;align-items:start;
+}
+.l:not(.tilde)::before{
+  counter-increment:ln;content:counter(ln);
+  color:var(--gutter);text-align:right;user-select:none;
+}
+.l.tilde::before{content:"~";color:var(--blue);user-select:none;}
+.file.anim .l{opacity:0;animation:rise .42s ease forwards;animation-delay:calc(var(--i,0)*40ms);}
+@keyframes rise{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:none;}}
+.c{color:var(--gray);}
+.sig{color:var(--red);}
+.h{color:var(--yellow);text-shadow:0 0 9px rgba(250,189,47,.4);}
+.k{color:var(--aqua);display:inline-block;min-width:13ch;}
+.proj{color:var(--green);text-shadow:0 0 9px rgba(184,187,38,.35);}
+.br{color:var(--yellow);}
+.src{color:var(--orange);}
+.dot{color:var(--gray);}
+a{color:var(--blue);text-decoration:none;border-radius:2px;padding:0 1px;transition:background .12s,color .12s;}
+a:hover{background:var(--blue);color:var(--bg-hard);}
+a:hover .src{color:var(--bg-hard);}
+a:focus-visible{outline:2px solid var(--yellow);outline-offset:1px;}
+.cursor{
+  display:inline-block;width:8px;height:1.05em;background:var(--green);
+  vertical-align:text-bottom;margin-left:3px;box-shadow:0 0 8px rgba(184,187,38,.7);
+  animation:blink 1.08s steps(1) infinite;
+}
+@keyframes blink{50%{opacity:0;}}
+.status{display:flex;align-items:center;background:var(--bg-hard);border-top:1px solid #3c3836;font-size:12.5px;user-select:none;}
+.mode{background:var(--green);color:var(--bg-hard);font-weight:700;padding:5px 15px;}
+.branch{background:var(--bg-soft);color:var(--aqua);padding:5px 13px;}
+.seg{padding:5px 13px;}
+.seg.f{color:var(--yellow);}
+.spacer{flex:1;}
+.seg.r{color:var(--gray);}
+.pos{background:var(--green);color:var(--bg-hard);font-weight:700;padding:5px 13px;}
+@media(prefers-reduced-motion:reduce){
+  .file.anim .l{opacity:1;animation:none;}
+  .cursor{animation:none;}
+}
+@media(max-width:560px){
+  body{font-size:13.5px;padding:12px 8px;}
+  .l{grid-template-columns:2.5ch 1fr;gap:10px;padding:0 12px;}
+  .k{display:block;min-width:0;}
+  .seg.hide{display:none;}
+  .status{font-size:11px;}
+}
+</style>
+</head>
+<body>
+<main class="win">
+  <div class="tabline">
+    <div class="tab on">denoss.md</div>
+    <div class="tab off">readme.md</div>
+    <div class="tabfill"></div>
+  </div>
+
+  <div class="file">
+    <div class="l"><span class="c">" denoss <span class="dot">·</span> backend / cybersecurite / devops</span></div>
+    <div class="l"></div>
+    <div class="l"><span class="sig">##</span> <span class="h">42</span></div>
+    <div class="l"><span>etudiant a l'ecole 42 <span class="dot">—</span> projets concrets, peer-to-peer.</span></div>
+    <div class="l"><span>comprendre les systemes de bout en bout, automatiser,</span></div>
+    <div class="l"><span>concevoir des solutions robustes et securisees.</span></div>
+    <div class="l"></div>
+    <div class="l"><span class="sig">##</span> <span class="h">skills</span></div>
+    <div class="l"><span class="k">langages</span><span>c++, c, python, bash, js, ts</span></div>
+    <div class="l"><span class="k">devops/cloud</span><span>docker, kubernetes, aws, grafana</span></div>
+    <div class="l"><span class="k">reseau</span><span>tcp/ip, http, ssh, nginx</span></div>
+    <div class="l"><span class="k">bases</span><span>postgresql, mysql, mariadb</span></div>
+    <div class="l"><span class="k">outils</span><span>git, vim, gdb, lldb, valgrind</span></div>
+    <div class="l"></div>
+    <div class="l"><span class="sig">##</span> <span class="h">projects</span></div>
+    <div class="l"><span class="proj">transcendence</span> <a href="https://github.com/gedenoss" target="_blank" rel="noopener"><span class="br">[</span><span class="src">src</span><span class="br">]</span></a></div>
+    <div class="l"><span class="c">&nbsp;&nbsp;serveur web multijoueur temps reel, sessions,</span></div>
+    <div class="l"><span class="c">&nbsp;&nbsp;persistance conforme rgpd.</span></div>
+    <div class="l"><span class="proj">inception</span> <a href="https://github.com/gedenoss" target="_blank" rel="noopener"><span class="br">[</span><span class="src">src</span><span class="br">]</span></a></div>
+    <div class="l"><span class="c">&nbsp;&nbsp;infra docker multi-services, conteneurs</span></div>
+    <div class="l"><span class="c">&nbsp;&nbsp;configures a la main.</span></div>
+    <div class="l"><span class="proj">webserv</span> <a href="https://github.com/gedenoss" target="_blank" rel="noopener"><span class="br">[</span><span class="src">src</span><span class="br">]</span></a></div>
+    <div class="l"><span class="c">&nbsp;&nbsp;serveur http/1.1 en c++98 inspire de nginx, sockets, cgi.</span></div>
+    <div class="l"><span class="proj">minishell</span> <a href="https://github.com/gedenoss" target="_blank" rel="noopener"><span class="br">[</span><span class="src">src</span><span class="br">]</span></a></div>
+    <div class="l"><span class="c">&nbsp;&nbsp;shell unix en c <span class="dot">—</span> parsing, pipes, redirections, signaux.</span></div>
+    <div class="l"></div>
+    <div class="l"><span class="sig">##</span> <span class="h">links</span></div>
+    <div class="l"><span class="k">github</span><a href="https://github.com/gedenoss" target="_blank" rel="noopener">github.com/gedenoss</a></div>
+    <div class="l"><span class="k">hackthebox</span><a href="https://app.hackthebox.com" target="_blank" rel="noopener">app.hackthebox.com</a></div>
+    <div class="l"><span class="k">tryhackme</span><a href="https://tryhackme.com" target="_blank" rel="noopener">tryhackme.com</a></div>
+    <div class="l"><span class="k">codingame</span><a href="https://www.codingame.com" target="_blank" rel="noopener">codingame.com</a></div>
+    <div class="l"><span class="k">leetcode</span><a href="https://leetcode.com" target="_blank" rel="noopener">leetcode.com</a></div>
+    <div class="l"></div>
+    <div class="l"><span class="sig">##</span> <span class="h">interests</span></div>
+    <div class="l"><span>pentest <span class="dot">·</span> osint<span class="cursor"></span></span></div>
+    <div class="l tilde"></div>
+    <div class="l tilde"></div>
+    <div class="l tilde"></div>
+  </div>
+
+  <div class="status">
+    <span class="mode">NORMAL</span>
+    <span class="branch">main</span>
+    <span class="seg f">denoss.md</span>
+    <span class="spacer"></span>
+    <span class="seg r hide">markdown</span>
+    <span class="seg r hide">utf-8</span>
+    <span class="pos">100% 42:1</span>
+  </div>
+</main>
+<script>
+document.querySelectorAll('.file .l').forEach(function(el,i){el.style.setProperty('--i',i);});
+document.querySelector('.file').classList.add('anim');
+</script>
+</body>
+</html>
